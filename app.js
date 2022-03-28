@@ -31,11 +31,21 @@ app.post("/", function (req, res) {
         ]
     };
     const jsonData = JSON.stringify(data);
-    const url = "https://usX.api.mailchimp.com/3.0/lists/7f042ac910"
+    const url = "https://us14.api.mailchimp.com/3.0/lists/7f042ac910"
 
-    https.request(url, options, function (response) {
+    const options = {
+        method: "POST",
+        auth: "jani1:a020ee51898c233faa49485c4d7db556-us14"
+    }
 
+    const request = https.request(url, options, function (response) {
+        response.on("data", function (data) {
+            console.log(JSON.parse(data));
+        })
     })
+
+    request.write(jsonData);
+    request.end();
 });
 
 
@@ -46,6 +56,6 @@ app.listen(3000, function () {
 
 
 
-//API Key a020ee51898c233faa49485c4d7db556
+//API Key a020ee51898c233faa49485c4d7db556-us14
 
 // List id 7f042ac910
